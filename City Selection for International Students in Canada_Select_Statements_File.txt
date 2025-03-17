@@ -1,0 +1,18 @@
+SELECT 
+    cr.city_index,
+    cr.city,
+    AVG(ow.median_wages) AS average_wages,
+    ct.season,
+    AVG(ct.min_temp + ct.max_temp) / 2 AS average_temperature,
+    AVG(cr.value) AS average_rent
+FROM 
+    city_rent cr
+JOIN 
+    occupation_wages ow ON cr.city_index = ow.city_index
+JOIN 
+    city_temp ct ON cr.city_index = ct.index
+GROUP BY 
+    cr.city_index, cr.city, ct.season
+ORDER BY 
+    cr.city, ct.season;
+	

@@ -1,0 +1,33 @@
+-- Table 1: occupation_wages
+CREATE TABLE occupation_wages (
+    city_index INT,
+    city VARCHAR(50),
+    occupation VARCHAR(100),
+    low_wages DECIMAL(10, 2),
+    median_wages DECIMAL(10, 2),
+    high_wages DECIMAL(10, 2)
+);
+
+-- Table 2: city_rent
+CREATE TABLE city_rent (
+    city_index INT,
+    city VARCHAR(50),
+    date DATE,
+    product VARCHAR(50),
+    value DECIMAL(10, 2)
+);
+
+-- Table 3: city_index
+CREATE TABLE city_index (
+    index INT, -- Add a unique constraint to the index column
+    city VARCHAR(50)
+);
+
+-- Adding foreign keys
+ALTER TABLE occupation_wages
+ADD CONSTRAINT fk_occupation_wages_city_index
+FOREIGN KEY (city_index) REFERENCES city_index (index);
+
+ALTER TABLE city_rent
+ADD CONSTRAINT fk_city_rent_city_index
+FOREIGN KEY (city_index) REFERENCES city_index (index);
